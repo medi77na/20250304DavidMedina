@@ -1,0 +1,6 @@
+@Crecer_HostAddress = http://localhost:5272
+
+GET {{Crecer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
