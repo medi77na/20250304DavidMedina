@@ -14,7 +14,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", policy =>
     {
         policy
-            //.WithOrigins("http://127.0.0.1:5500")
             .AllowAnyOrigin()  // Permitir solicitudes de cualquier origen
             .AllowAnyMethod()  // Permitir cualquier método HTTP (GET, POST, PUT, DELETE, etc.)
             .AllowAnyHeader(); // Permitir cualquier cabecera
