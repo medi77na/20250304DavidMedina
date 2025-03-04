@@ -1,6 +1,25 @@
+using Crecer.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configuración de la cadena de conexión
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+// Añade servicios al contenedor.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            //.WithOrigins("http://127.0.0.1:5500")
+            .AllowAnyOrigin()  // Permitir solicitudes de cualquier origen
+            .AllowAnyMethod()  // Permitir cualquier método HTTP (GET, POST, PUT, DELETE, etc.)
+            .AllowAnyHeader(); // Permitir cualquier cabecera
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
