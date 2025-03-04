@@ -7,7 +7,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls("http://*:8080");
+builder.WebHost.UseUrls("http://*:8080", "http://*:8088");
 
 // Configuración de la cadena de conexión
 builder.Services.AddDbContext<AppDbContext>(options =>

@@ -37,6 +37,7 @@ namespace Crecer.Services
         public async Task Agregar(EstudiantePostDto estudianteDto)
         {
             var estudiante = _mapper.Map<Estudiante>(estudianteDto);
+            estudiante.Edad = estudiante.CalcularEdad();
             await _estudianteRepository.Agregar(estudiante);
         }
 

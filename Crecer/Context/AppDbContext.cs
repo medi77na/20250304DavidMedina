@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Crecer.Context
 {
+    using AutoMapper.Execution;
+    using Crecer.Seeders;
     using Microsoft.EntityFrameworkCore;
 
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
@@ -25,6 +27,8 @@ namespace Crecer.Context
                 .HasOne(em => em.Materia)
                 .WithMany(m => m.EstudianteMaterias)
                 .HasForeignKey(em => em.MateriaId);
+
+            modelBuilder.Entity<Estudiante>().HasData(EstudianteSeeder.GetSeedData());
         }
     }
 }
