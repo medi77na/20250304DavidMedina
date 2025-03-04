@@ -1,0 +1,39 @@
+﻿services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver
+    restart: always
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - app_network
+    environment:
+      - SA_PASSWORD=Qwerty12345*
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express 
+
+  rolemanagement_api:
+    image: crecer:dev
+    container_name: crecer_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - sqlserver
+    networks:
+      - app_network
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CrecerDB;User ID=dmsteven;Password=Qwerty12345*;TrustServerCertificate=true;
+      - ASPNETCORE_ENVIRONMENT=Development  
+
+volumes:
+  sqlserver_data:
+
+networks:
+  app_network:
+    driver: bridge
